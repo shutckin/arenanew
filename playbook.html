@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arena × Production Playbook 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #0D0D0D;
+  --d1: #141414;
+  --d2: #1A1A1A;
+  --d3: #222222;
+  --d4: #2C2C2C;
+  --d5: #333333;
+  --red: #CC1E28;
+  --red2: #8B1015;
+  --red-dim: rgba(204,30,40,0.12);
+  --white: #FFFFFF;
+  --gray: #888888;
+  --lgray: #AAAAAA;
+  --kling: #1A6ECC;
+  --kling-dim: rgba(26,110,204,0.12);
+  --eleven: #16A34A;
+  --eleven-dim: rgba(22,163,74,0.12);
+  --capcut: #9333EA;
+  --capcut-dim: rgba(147,51,234,0.12);
+  --gpt: #CC7A1E;
+  --gpt-dim: rgba(204,122,30,0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; line-height: 0.95; }
+.mono { font-family: 'JetBrains Mono', monospace; }
+.red { color: var(--red); }
+.gray { color: var(--gray); }
+.lgray { color: var(--lgray); }
+strong { font-weight: 600; }
+mark {
+  background: var(--red-dim);
+  color: var(--white);
+  padding: 0 3px;
+  border-radius: 2px;
+  border-left: 2px solid var(--red);
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(13,13,13,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--d4);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 48px;
+}
+.nav-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  color: var(--white);
+  margin-right: 32px;
+  white-space: nowrap;
+}
+.nav-brand span { color: var(--red); }
+nav a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0 14px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+nav a:hover { color: var(--white); border-bottom-color: var(--red); }
+.nav-badge {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red);
+  border: 1px solid var(--red2);
+  padding: 3px 10px;
+  border-radius: 2px;
+}
+
+/* ── COVER ── */
+#cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 80px;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+.cover-photo {
+  position: absolute;
+  inset: 0;
+  background-image: url("фото/JG x Nike Basketball Shoot.jpg");
+  background-size: cover;
+  background-position: center 30%;
+  opacity: 0.18;
+  mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%);
+}
+.cover-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 30%, transparent 90%);
+}
+.cover-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cover-tag::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--red);
+}
+.cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px, 10vw, 140px);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  margin-bottom: 12px;
+}
+.cover-title em {
+  display: block;
+  color: var(--red);
+  font-style: normal;
+}
+.cover-sub {
+  font-size: 15px;
+  color: var(--lgray);
+  font-weight: 400;
+  margin-bottom: 48px;
+  letter-spacing: 0.02em;
+}
+.cover-pills {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.pill {
+  background: var(--d2);
+  border: 1px solid var(--d5);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--lgray);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pill.red { background: var(--red-dim); border-color: var(--red2); color: var(--red); color: #FF5B62; }
+.pill-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+}
+
+/* ── SECTION ── */
+.section {
+  padding: 80px 80px;
+  border-bottom: 1px solid var(--d3);
+}
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  margin-bottom: 48px;
+}
+.section-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px;
+  line-height: 1;
+  color: var(--d5);
+  min-width: 80px;
+}
+.section-title {
+  flex: 1;
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 6px;
+}
+.section-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+.section-desc {
+  font-size: 13px;
+  color: var(--gray);
+  margin-top: 6px;
+}
+
+/* ── FORMAT CARDS ── */
+.formats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: var(--d4);
+}
+.fmt-card {
+  background: var(--d1);
+  padding: 28px 32px;
+  position: relative;
+}
+.fmt-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--red2);
+}
+.fmt-card:hover::before {
+  background: var(--red);
+}
+.fmt-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+.fmt-slot {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray);
+  background: var(--d3);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+.fmt-duration {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--lgray);
+}
+.fmt-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11px;
+  color: var(--red);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+.fmt-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+}
+.fmt-arc {
+  font-size: 12px;
+  color: var(--lgray);
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--d4);
+  line-height: 1.5;
+}
+.fmt-arc strong { color: var(--white); }
+
+/* Shot structure */
+.shots {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.shot {
+  flex: 1;
+  background: var(--d2);
+  border: 1px solid var(--d4);
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+.shot-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 4px;
+}
+.shot-text {
+  font-size: 11px;
+  color: var(--lgray);
+  line-height: 1.4;
+}
+.shot-dur {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--gray);
+  margin-top: 6px;
+}
+
+/* VO Block */
+.vo-block {
+  background: var(--d2);
+  border: 1px solid var(--d4);
+  border-radius: 4px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+.vo-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--eleven);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.vo-label::before {
+  content: '♪';
+  font-size: 10px;
+}
+.vo-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #B3E8C8;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* Meta row */
+.fmt-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.fmt-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--gray);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.fmt-tag span { color: var(--lgray); }
+.cta-badge {
+  background: var(--red-dim);
+  border: 1px solid var(--red2);
+  color: #FF7077;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+
+/* ── PIPELINE ── */
+.pipeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.step {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--d3);
+  position: relative;
+}
+.step:last-child { border-bottom: none; }
+.step-time-col {
+  padding: 24px 20px 24px 0;
+  border-right: 1px solid var(--d4);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  position: relative;
+}
+.step-time-col::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: 28px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--d5);
+  border: 2px solid var(--d4);
+}
+.step:first-child .step-time-col::after { background: var(--red); border-color: var(--red2); }
+.step-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--lgray);
+  text-align: right;
+}
+.step-dur-tag {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--gray);
+  letter-spacing: 0.08em;
+  text-align: right;
+}
+.step-body {
+  padding: 24px 0 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.step-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.step-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  color: var(--red);
+  letter-spacing: 0.1em;
+  min-width: 24px;
+}
+.step-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+}
+.tool-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+.tool-gpt { background: var(--gpt-dim); color: #F0A040; border: 1px solid rgba(204,122,30,0.3); }
+.tool-eleven { background: var(--eleven-dim); color: #4ADE80; border: 1px solid rgba(22,163,74,0.3); }
+.tool-kling { background: var(--kling-dim); color: #60A5FA; border: 1px solid rgba(26,110,204,0.3); }
+.tool-capcut { background: var(--capcut-dim); color: #C084FC; border: 1px solid rgba(147,51,234,0.3); }
+.tool-manual { background: var(--d2); color: var(--lgray); border: 1px solid var(--d4); }
+
+.step-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.step-items li {
+  font-size: 13px;
+  color: var(--lgray);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.step-items li::before {
+  content: '→';
+  color: var(--red);
+  font-size: 11px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.step-output {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--gray);
+}
+.step-output::before {
+  content: '✓';
+  color: var(--eleven);
+  font-weight: 700;
+}
+.step-output strong { color: var(--lgray); }
+
+/* ── TOOL SPECS ── */
+.tool-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.tool-block {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 40px;
+  padding: 32px;
+  background: var(--d1);
+  border: 1px solid var(--d3);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+.tool-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 3px;
+}
+.tool-block.kling::before { background: var(--kling); }
+.tool-block.eleven::before { background: var(--eleven); }
+.tool-block.capcut::before { background: var(--capcut); }
+.tool-block.gpt::before { background: var(--gpt); }
+
+.tool-sidebar { display: flex; flex-direction: column; gap: 16px; }
+.tool-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+.tool-name.kling { color: #60A5FA; }
+.tool-name.eleven { color: #4ADE80; }
+.tool-name.capcut { color: #C084FC; }
+.tool-name.gpt { color: #F0A040; }
+.tool-role {
+  font-size: 11px;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+.tool-step-tag {
+  font-size: 12px;
+  color: var(--lgray);
+}
+.tool-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.spec-block {
+  background: var(--d2);
+  border: 1px solid var(--d4);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.spec-block-title {
+  background: var(--d3);
+  padding: 8px 16px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lgray);
+  border-bottom: 1px solid var(--d4);
+}
+.spec-rows {
+  display: flex;
+  flex-direction: column;
+}
+.spec-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  border-bottom: 1px solid var(--d3);
+  min-height: 36px;
+}
+.spec-row:last-child { border-bottom: none; }
+.spec-key {
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray);
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid var(--d3);
+  background: rgba(255,255,255,0.01);
+}
+.spec-val {
+  padding: 8px 16px;
+  font-size: 11px;
+  color: var(--lgray);
+  display: flex;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.5;
+}
+.spec-val.normal {
+  font-family: 'Inter', sans-serif;
+  color: var(--white);
+}
+
+/* Prompt blocks */
+.prompt-block {
+  background: var(--d2);
+  border: 1px solid var(--d4);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.prompt-header {
+  background: var(--d3);
+  padding: 8px 16px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #60A5FA;
+  border-bottom: 1px solid var(--d4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.prompt-text {
+  padding: 14px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #B3C8E8;
+  line-height: 1.7;
+}
+.prompt-text .var {
+  color: #FF9966;
+}
+.prompt-text .kw {
+  color: #F0A040;
+}
+
+/* Voice rows */
+.voice-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.voice-card {
+  background: var(--d2);
+  border: 1px solid var(--d4);
+  padding: 12px 16px;
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 16px;
+  align-items: center;
+  border-radius: 4px;
+}
+.voice-id {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: #4ADE80;
+  line-height: 1;
+}
+.voice-desc { display: flex; flex-direction: column; gap: 2px; }
+.voice-desc strong { font-size: 13px; font-weight: 600; }
+.voice-desc span { font-size: 11px; color: var(--gray); }
+.voice-formats { font-size: 10px; color: var(--lgray); text-align: right; line-height: 1.6; }
+
+/* ── ARCHETYPES ── */
+.arch-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: var(--d4);
+}
+.arch-card {
+  background: var(--d1);
+  padding: 20px 24px;
+}
+.arch-num {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--red);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+.arch-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+.arch-desc {
+  font-size: 12px;
+  color: var(--gray);
+  line-height: 1.5;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--d4);
+}
+.arch-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.arch-tag {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: var(--d3);
+  color: var(--gray);
+}
+
+/* ── CALENDAR ── */
+.cal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.cal-table th {
+  background: var(--d2);
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+  border: 1px solid var(--d4);
+}
+.cal-table td {
+  padding: 10px 14px;
+  border: 1px solid var(--d3);
+  color: var(--lgray);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.cal-table td:first-child {
+  font-weight: 700;
+  color: var(--white);
+  background: var(--d1);
+  white-space: nowrap;
+}
+.cal-table tr:hover td { background: var(--d2); }
+.cal-table tr:hover td:first-child { background: var(--d2); }
+.slot-a { color: #FF7077; }
+.slot-b { color: #60A5FA; }
+.slot-c { color: #4ADE80; }
+.slot-d { color: #F0A040; }
+.slot-e { color: #C084FC; }
+.slot-f { color: #38BDF8; }
+
+/* ── PHOTO DIVIDER ── */
+.photo-divider {
+  height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+.photo-divider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  opacity: 0.35;
+}
+.photo-divider-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--bg) 0%, transparent 30%, transparent 70%, var(--bg) 100%),
+              linear-gradient(to bottom, var(--bg) 0%, transparent 20%, transparent 80%, var(--bg) 100%);
+}
+.photo-divider-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.08);
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 40px 80px;
+  border-top: 1px solid var(--d3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer .logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.06em;
+}
+footer .logo span { color: var(--red); }
+footer .meta { font-size: 11px; color: var(--gray); text-align: right; line-height: 1.8; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  #cover, .section { padding: 48px 24px; }
+  .formats-grid { grid-template-columns: 1fr; }
+  .tool-block { grid-template-columns: 1fr; }
+  .arch-grid { grid-template-columns: repeat(2, 1fr); }
+  nav a { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand"><span>ARENA</span> × PLAYBOOK</div>
+  <a href="#formats">Форматы</a>
+  <a href="#pipeline">Пайплайн</a>
+  <a href="#tools">Инструменты</a>
+  <a href="#archetypes">Архетипы</a>
+  <a href="#calendar">Календарь</a>
+  <div class="nav-badge">Только для команды</div>
+</nav>
+
+<!-- COVER -->
+<section id="cover">
+  <div class="cover-photo"></div>
+  <div class="cover-grid"></div>
+  <div class="cover-tag">Arena × Artek Studio · Март 2026</div>
+  <h1 class="cover-title display">
+    Production<br>
+    <em>Playbook</em>
+  </h1>
+  <p class="cover-sub">Механика создания видео · AI Content Farm · Внутренний документ команды</p>
+  <div class="cover-pills">
+    <div class="pill red"><div class="pill-dot"></div>Только для внутреннего пользования</div>
+    <div class="pill">6 роликов / день</div>
+    <div class="pill">Kling 3 · ElevenLabs · CapCut</div>
+    <div class="pill">5 часов · 1–2 человека</div>
+  </div>
+</section>
+
+<!-- FORMATS -->
+<section id="formats" class="section">
+  <div class="section-header">
+    <div class="section-num display">01</div>
+    <div class="section-title">
+      <div class="section-label">Структура видео</div>
+      <div class="section-name display">6 ежедневных форматов</div>
+      <div class="section-desc">Каждый день производятся ровно 6 роликов, каждый строго своего типа. Слоты A–F назначаются по расписанию ротации.</div>
+    </div>
+  </div>
+
+  <div class="formats-grid">
+
+    <!-- FORMAT 01 -->
+    <div class="fmt-card">
+      <div class="fmt-top">
+        <div class="fmt-slot">Слот A</div>
+        <div class="fmt-duration">15–18 сек</div>
+      </div>
+      <div class="fmt-num">FORMAT 01</div>
+      <div class="fmt-name display">Origin Story</div>
+      <div class="fmt-arc">
+        <strong>Дуга:</strong> Боль → Открытие → Надежда<br>
+        <strong>Этап воронки:</strong> Осведомлённость → Желание<br>
+        <strong>Архетипы:</strong> Мечтатель · Хастлер · Студент
+      </div>
+      <div class="shots">
+        <div class="shot">
+          <div class="shot-label">Шот 1</div>
+          <div class="shot-text">Мир персонажа — улица, стадион, общежитие</div>
+          <div class="shot-dur">5–6 сек · Wide handheld</div>
+        </div>
+        <div class="shot">
+          <div class="shot-label">Шот 2</div>
+          <div class="shot-text">Телефон — экран Arena, момент открытия</div>
+          <div class="shot-dur">5–6 сек · Close-up push in</div>
+        </div>
+        <div class="shot">
+          <div class="shot-label">Шот 3</div>
+          <div class="shot-text">Трансформация + счётчик + взгляд в камеру</div>
+          <div class="shot-dur">4–5 сек · Medium pull back</div>
+        </div>
+      </div>
+      <div class="vo-block">
+        <div class="vo-label">VO Template · ElevenLabs · Voice A</div>
+        <div class="vo-text">"He watched football every day. Same street. Same dream. Then he found Arena. Now every match pays. Watch it. Share it. Earn from it. Sport changed his life. It can change yours. Join Arena."</div>
+      </div>
+      <div class="fmt-meta">
+        <div class="fmt-tag">CTA <span>"Join Arena. Link in bio."</span></div>
+        <div class="cta-badge">#ArenaPartner</div>
+      </div>
+    </div>
+
+    <!-- FORMAT 02 -->
+    <div class="fmt-card">
+      <div class="fmt-top">
+        <div class="fmt-slot">Слот B</div>
+        <div class="fmt-duration">15–20 сек</div>
+      </div>
+      <div class="fmt-num">FORMAT 02</div>
+      <div class="fmt-name display">First Earn</div>
+      <div class="fmt-arc">
+        <strong>Дуга:</strong> Удивление → Подтверждение → FOMO<br>
+        <strong>Этап воронки:</strong> Желание → Действие (наивысшая конверсия)<br>
+        <strong>Архетипы:</strong> Случайный болельщик · Студент · Родитель
+      </div>
+      <div class="shots">
+        <div class="shot">
+          <div class="shot-label">Шот 1</div>
+          <div class="shot-text">Персонаж смотрит на телефон с удивлением</div>
+          <div class="shot-dur">5–6 сек · Medium, reaction</div>
+        </div>
+        <div class="shot">
+          <div class="shot-label">Шот 2</div>
+          <div class="shot-text">Крупный план: счётчик Arena Points растёт</div>
+          <div class="shot-dur">5–6 сек · ECU screen + hand</div>
+        </div>
+        <div class="shot">
+          <div class="shot-label">Шот 3</div>
+          <div class="shot-text">Раскрытие: он просто сделал один репост</div>
+          <div class="shot-dur">4–5 сек · Wide, reveal shot</div>
+        </div>
+      </div>
+      <div class="vo-block">
+        <div class="vo-label">VO Template · ElevenLabs · Voice B</div>
+        <div class="vo-text">"He shared one football video. That was it. Arena counted every single view. Real money. Blockchain-certified. He didn't change anything. He just joined Arena. Your passion. Your profit."</div>
+      </div>
+      <div class="fmt-meta">
+        <div class="fmt-tag">CTA <span>"Calculator in bio."</span></div>
+        <div class="cta-badge">#WatchAndEarn</div>
+      </div>
+    </div>
+
+    <!-- FORMAT 03 -->
+    <div class="fmt-card">
+      <div class="fmt-top">
+        <div class="fmt-slot">Слот C</div>
+        <div class="fmt-duration">18–20 сек</div>
+      </div>
+      <div class="fmt-num">FORMAT 03</div>
+      <div class="fmt-name display">How It Works</div>
+      <div class="fmt-arc">
+        <strong>Дуга:</strong> Ясность → Простота → Призыв к действию<br>
+        <strong>Этап воронки:</strong> Интерес → Желание (второй контакт)<br>
+        <strong>Архетипы:</strong> Преданный фанат · Случайный болельщик · Студент
+      </div>
+      <div class="shots">
+        <div class="shot">
+          <div class="shot-label">Шот 1</div>
+          <div class="shot-text">Watch — скринмокап с 0.1× счётчиком</div>
+          <div class="shot-dur">5–6 сек · Screen record style</div>
+        </div>
+        <div class="shot">
+          <div class="shot-label">Шот 2</div>
+          <div class="shot-text">Share — 1× множитель, растущий счётчик</div>
+          <div class="shot-dur">5–6 сек · Split: phone + counter</div>
+        </div>
+        <div class="shot">
+          <div class="shot-label">Шот 3</div>
+          <div class="shot-text">Create — 3–5× множитель, победная реакция</div>
+          <div class="shot-dur">6–7 сек · Wide celebration</div>
+        </div>
+      </div>
+      <div class="vo-block">
+        <div class="vo-label">VO Template · ElevenLabs · Voice B</div>
+        <div class="vo-text">"Watch. Share. Create. Three steps. That's Arena. Watch football campaigns — earn points. Share them — earn more. Make your own video — earn up to 50x. Every view blockchain-certified. Be more than a fan."</div>
+      </div>
+      <div class="fmt-meta">
+        <div class="fmt-tag">CTA <span>"3 steps. Start now. Link in bio."</span></div>
+        <div class="cta-badge">#ArenaPartner</div>
+      </div>
+    </div>
+
+    <!-- FORMAT 04 -->
+    <div class="fmt-card">
+      <div class="fmt-top">
+        <div class="fmt-slot">Слот D</div>
+        <div class="fmt-duration">15–17 сек</div>
+      </div>
+      <div class="fmt-num">FORMAT 04</div>
+      <div class="fmt-name display">Fan Reaction</div>
+      <div class="fmt-arc">
+        <strong>Дуга:</strong> Эмоция → Идентичность → Монетизация<br>
+        <strong>Этап воронки:</strong> Осведомлённость → Интерес (вирусный)<br>
+        <strong>Архетипы:</strong> Ультрас · Преданный фанат · Фанат легенды
+      </div>
+      <div class="shots">
+        <div class="shot">
+          <div class="shot-label">Шот 1</div>
+          <div class="shot-text">Персонаж смотрит матч — сырая эмоция</div>
+          <div class="shot-dur">5 сек · Handheld, close</div>
+        </div>
+        <div class="shot">
+          <div class="shot-label">Шот 2</div>
+          <div class="shot-text">Он снимает реакцию и публикует на Arena</div>
+          <div class="shot-dur">5 сек · POV phone screen</div>
+        </div>
+        <div class="shot">
+          <div class="shot-label">Шот 3</div>
+          <div class="shot-text">Счётчик растёт в реальном времени</div>
+          <div class="shot-dur">4–5 сек · Screen zoom in</div>
+        </div>
+      </div>
+      <div class="vo-block">
+        <div class="vo-label">VO Template · ElevenLabs · Voice A или C</div>
+        <div class="vo-text">"That goal. That reaction. He filmed it. Posted on Arena. And earned. Every reaction is worth something now. Every match. Every moment. Watch it. Share it. Earn from it."</div>
+      </div>
+      <div class="fmt-meta">
+        <div class="fmt-tag">CTA <span>"React. Earn. Repeat."</span></div>
+        <div class="cta-badge">#ArenaPartner</div>
+      </div>
+    </div>
+
+    <!-- FORMAT 05 -->
+    <div class="fmt-card">
+      <div class="fmt-top">
+        <div class="fmt-slot">Слот E</div>
+        <div class="fmt-duration">15–18 сек</div>
+      </div>
+      <div class="fmt-num">FORMAT 05</div>
+      <div class="fmt-name display">Club Pride</div>
+      <div class="fmt-arc">
+        <strong>Дуга:</strong> Клубная гордость → Коллективный заработок<br>
+        <strong>Этап воронки:</strong> Осведомлённость (таргетинг по сообществам)<br>
+        <strong>Архетипы:</strong> Ультрас · Преданный фанат
+      </div>
+      <div class="shots">
+        <div class="shot">
+          <div class="shot-label">Шот 1</div>
+          <div class="shot-text">Символика клуба, болельщик с атрибутикой</div>
+          <div class="shot-dur">5–6 сек · Wide fan shot</div>
+        </div>
+        <div class="shot">
+          <div class="shot-label">Шот 2</div>
+          <div class="shot-text">Персонаж публикует клубный контент на Arena</div>
+          <div class="shot-dur">5 сек · Phone close-up</div>
+        </div>
+        <div class="shot">
+          <div class="shot-label">Шот 3</div>
+          <div class="shot-text">Зеркальные поинты: и фанат и клуб зарабатывают</div>
+          <div class="shot-dur">5–6 сек · Dual counter graphic</div>
+        </div>
+      </div>
+      <div class="vo-block">
+        <div class="vo-label">VO Template · ElevenLabs · Voice A</div>
+        <div class="vo-text">"[Club] is not just a club. It's a family. And on Arena, every time you share football content — your club earns too. You earn. [Club] earns. Together. Your club. Your content. Your income."</div>
+      </div>
+      <div class="fmt-meta">
+        <div class="fmt-tag">CTA <span>"[Club] fans earn on Arena."</span></div>
+        <div class="cta-badge">#[ClubHashtag]</div>
+      </div>
+    </div>
+
+    <!-- FORMAT 06 -->
+    <div class="fmt-card">
+      <div class="fmt-top">
+        <div class="fmt-slot">Слот F</div>
+        <div class="fmt-duration">15–20 сек</div>
+      </div>
+      <div class="fmt-num">FORMAT 06</div>
+      <div class="fmt-name display">Challenge Drop</div>
+      <div class="fmt-arc">
+        <strong>Дуга:</strong> FOMO → Соревнование → Командный импульс<br>
+        <strong>Этап воронки:</strong> Осведомлённость → Действие (вирусная петля)<br>
+        <strong>Архетипы:</strong> Любой — высокая энергия
+      </div>
+      <div class="shots">
+        <div class="shot">
+          <div class="shot-label">Шот 1</div>
+          <div class="shot-text">Энергичный хук — анонс челленджа</div>
+          <div class="shot-dur">4–5 сек · Fast cut, dynamic</div>
+        </div>
+        <div class="shot">
+          <div class="shot-label">Шот 2</div>
+          <div class="shot-text">Задание + множитель 5–10×</div>
+          <div class="shot-dur">5–6 сек · Graphic overlay</div>
+        </div>
+        <div class="shot">
+          <div class="shot-label">Шот 3</div>
+          <div class="shot-text">Амбассадор/участники + срочный CTA</div>
+          <div class="shot-dur">5–8 сек · Wide energy shot</div>
+        </div>
+      </div>
+      <div class="vo-block">
+        <div class="vo-label">VO Template · ElevenLabs · Voice C</div>
+        <div class="vo-text">"The #ArenaGoal challenge is live. Film your best goal reaction. Post it. Win up to 10x Arena points. Thousands of fans are already in. This week only. Don't miss it."</div>
+      </div>
+      <div class="fmt-meta">
+        <div class="fmt-tag">CTA <span>"Join #ArenaGoal. Up to 10x."</span></div>
+        <div class="cta-badge">#ArenaGoal</div>
+      </div>
+    </div>
+
+  </div><!-- /formats-grid -->
+</section>
+
+<!-- PHOTO DIVIDER -->
+<div class="photo-divider">
+  <img src="фото/Fence.jpg" alt="">
+  <div class="photo-divider-overlay"></div>
+  <div class="photo-divider-label">PIPELINE</div>
+</div>
+
+<!-- PIPELINE -->
+<section id="pipeline" class="section">
+  <div class="section-header">
+    <div class="section-num display">02</div>
+    <div class="section-title">
+      <div class="section-label">Ежедневная механика</div>
+      <div class="section-name display">Пайплайн · 5 часов</div>
+      <div class="section-desc">8 шагов, 1–2 человека. Каждый шаг стандартизирован. Время — ориентир, не жёсткий дедлайн.</div>
+    </div>
+  </div>
+
+  <div class="pipeline">
+
+    <div class="step">
+      <div class="step-time-col">
+        <div class="step-time">09:00</div>
+        <div class="step-dur-tag">20 МИН</div>
+      </div>
+      <div class="step-body">
+        <div class="step-head">
+          <div class="step-n">01</div>
+          <div class="step-title">Контент-бриф</div>
+          <span class="tool-badge tool-manual">Вручную</span>
+        </div>
+        <ul class="step-items">
+          <li>Выбери архетипы из расписания ротации на сегодня (см. Раздел 04)</li>
+          <li>Назначь 6 форматов (A–F) на конкретные архетипы</li>
+          <li>Уточни спорт, регион, клуб — напр.: <mark>Ультрас + Фламенго + Футбол</mark></li>
+          <li>Для Club Pride (Слот E) — определи хэштег клуба и переменную [Club] в VO</li>
+        </ul>
+        <div class="step-output"><strong>Результат:</strong> 6 однострочных брифов, готовых к скриптингу</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-time-col">
+        <div class="step-time">09:20</div>
+        <div class="step-dur-tag">30 МИН</div>
+      </div>
+      <div class="step-body">
+        <div class="step-head">
+          <div class="step-n">02</div>
+          <div class="step-title">Генерация VO-скриптов</div>
+          <span class="tool-badge tool-gpt">GPT / Claude</span>
+        </div>
+        <ul class="step-items">
+          <li>Загрузи шаблон VO из Раздела 01 для каждого формата</li>
+          <li>Подставь бриф: архетип, регион, клуб, спорт</li>
+          <li><mark>Жёсткое ограничение: максимум 25 слов на скрипт</mark> = ~15 сек при темпе 1.5 сл/сек</li>
+          <li>Скрипт в третьем лице (<em>"He..."</em>) — один аудиофайл работает для всех Motion Control вариантов</li>
+          <li>Утверди все 6 скриптов перед следующим шагом</li>
+        </ul>
+        <div class="step-output"><strong>Результат:</strong> 6 утверждённых VO-скриптов на английском</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-time-col">
+        <div class="step-time">09:50</div>
+        <div class="step-dur-tag">20 МИН</div>
+      </div>
+      <div class="step-body">
+        <div class="step-head">
+          <div class="step-n">03</div>
+          <div class="step-title">Озвучка — ElevenLabs</div>
+          <span class="tool-badge tool-eleven">ElevenLabs</span>
+        </div>
+        <ul class="step-items">
+          <li>Параллельно генерируй озвучку для всех 6 скриптов</li>
+          <li><strong>Voice A</strong> (Африка/LATAM): Origin Story, Fan Reaction, Club Pride</li>
+          <li><strong>Voice B</strong> (Глобальный): How It Works, First Earn</li>
+          <li><strong>Voice C</strong> (Энергия): Challenge Drop, Fan Reaction (высокая энергия)</li>
+          <li>Экспортируй в <span class="mono">.mp3</span>, называй файлы по формату: <span class="mono">01_origin_A.mp3</span></li>
+        </ul>
+        <div class="step-output"><strong>Результат:</strong> 6 аудиофайлов, готовых к монтажу</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-time-col">
+        <div class="step-time">10:10</div>
+        <div class="step-dur-tag">30 МИН</div>
+      </div>
+      <div class="step-body">
+        <div class="step-head">
+          <div class="step-n">04</div>
+          <div class="step-title">Промпты для Kling 3</div>
+          <span class="tool-badge tool-manual">Вручную</span>
+          <span class="tool-badge tool-kling">Kling 3</span>
+        </div>
+        <ul class="step-items">
+          <li>Для каждого из 6 роликов пропиши 3 шота по структуре из Раздела 03</li>
+          <li>Каждый промпт включает: <mark>персонаж · среда · освещение · движение камеры</mark></li>
+          <li>Стиль: <em>Cinematic naturalistic, warm color grade</em> — указывай в каждом промпте</li>
+          <li>Не меняй стиль между шотами одного ролика — сохраняй непрерывность</li>
+        </ul>
+        <div class="step-output"><strong>Результат:</strong> 18 промптов (3 × 6 роликов)</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-time-col">
+        <div class="step-time">10:40</div>
+        <div class="step-dur-tag">60 МИН<br><span style="font-size:9px;color:var(--gray)">фон</span></div>
+      </div>
+      <div class="step-body">
+        <div class="step-head">
+          <div class="step-n">05</div>
+          <div class="step-title">Генерация видео в Kling 3</div>
+          <span class="tool-badge tool-kling">Kling 3 Multishot</span>
+        </div>
+        <ul class="step-items">
+          <li>Отправь все 6 промптов в <strong>Kling 3 Multishot</strong></li>
+          <li>Время генерации: <mark>5–10 мин на ролик (фоновый процесс)</mark></li>
+          <li>Пока идёт генерация — готовь CapCut-шаблон (Шаг 7)</li>
+          <li>Не жди завершения — параллельно можно приступать к Motion Control промптам</li>
+        </ul>
+        <div class="step-output"><strong>Результат:</strong> 6 базовых видеофайлов без аудио (9:16, ~1080×1920)</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-time-col">
+        <div class="step-time">11:40</div>
+        <div class="step-dur-tag">40 МИН</div>
+      </div>
+      <div class="step-body">
+        <div class="step-head">
+          <div class="step-n">06</div>
+          <div class="step-title">Motion Control — варианты персонажей</div>
+          <span class="tool-badge tool-kling">Kling Motion Control</span>
+        </div>
+        <ul class="step-items">
+          <li>Применяй к <strong>2–3 роликам</strong> с лучшей композицией — обычно Форматы 01 и 04</li>
+          <li>Меняй <mark>этнос / пол / возраст</mark> — все движения сцены сохраняются</li>
+          <li>Генерируй 2 варианта на ролик → итого +4–6 дополнительных видео</li>
+          <li>VO-аудио работает для всех вариантов без изменений (поэтому "He..." в третьем лице)</li>
+          <li>Пример: Молодой парень, Лагос → Вар. A: Южная Азия, Мумбаи → Вар. B: Женщина, Найроби</li>
+        </ul>
+        <div class="step-output"><strong>Результат:</strong> 4–6 дополнительных видео · итого 10–12 единиц контента</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-time-col">
+        <div class="step-time">12:20</div>
+        <div class="step-dur-tag">60 МИН</div>
+      </div>
+      <div class="step-body">
+        <div class="step-head">
+          <div class="step-n">07</div>
+          <div class="step-title">Постпродакшн — CapCut</div>
+          <span class="tool-badge tool-capcut">CapCut</span>
+        </div>
+        <ul class="step-items">
+          <li>Импортируй все видео + аудио в мастер-шаблон CapCut</li>
+          <li><strong>Субтитры:</strong> нижние 20% кадра · Arial Bold 44pt · белый + тень 2px</li>
+          <li><strong>Логотип Arena:</strong> правый нижний угол · появляется на 0:10 · белая версия</li>
+          <li><strong>CTA-оверлей:</strong> последние 4 сек · белый жирный на 50% тёмной полосе</li>
+          <li><strong>Цветокоррекция:</strong> пресет «Arena Warm» — подъём теней, десатурация светов, тёплые полутона</li>
+          <li><strong>Экспорт:</strong> <span class="mono">9:16 · 1080×1920 · H.264 · 30fps · ~15 МБ</span></li>
+        </ul>
+        <div class="step-output"><strong>Результат:</strong> 10–12 готовых файлов для публикации</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-time-col">
+        <div class="step-time">13:20</div>
+        <div class="step-dur-tag">30 МИН</div>
+      </div>
+      <div class="step-body">
+        <div class="step-head">
+          <div class="step-n">08</div>
+          <div class="step-title">QC + Планирование публикаций</div>
+          <span class="tool-badge tool-manual">QC + Планировщик</span>
+        </div>
+        <ul class="step-items">
+          <li><strong>Проверка:</strong> синхронизация VO, субтитры, CTA, логотип, цветокоррекция</li>
+          <li><strong>TikTok:</strong> 3 ролика → 12:00 / 18:00 / 21:00 UTC</li>
+          <li><strong>Instagram Reels:</strong> 2 ролика → 13:00 / 20:00 UTC</li>
+          <li><strong>YouTube Shorts:</strong> 1 ролик → 15:00 UTC</li>
+          <li>Motion Control варианты — в очередь на следующий день (не перегружай один день)</li>
+        </ul>
+        <div class="step-output"><strong>Результат:</strong> 6 роликов запланированы · варианты в очереди</div>
+      </div>
+    </div>
+
+  </div><!-- /pipeline -->
+</section>
+
+<!-- PHOTO DIVIDER -->
+<div class="photo-divider">
+  <img src="фото/Female Choosing Music for Workout.jpg" alt="">
+  <div class="photo-divider-overlay"></div>
+  <div class="photo-divider-label">TOOLS</div>
+</div>
+
+<!-- TOOLS -->
+<section id="tools" class="section">
+  <div class="section-header">
+    <div class="section-num display">03</div>
+    <div class="section-title">
+      <div class="section-label">Технические спецификации</div>
+      <div class="section-name display">AI-инструменты</div>
+      <div class="section-desc">Три ключевых инструмента обеспечивают весь производственный цикл. Motion Control — мультипликатор выхода.</div>
+    </div>
+  </div>
+
+  <div class="tool-sections">
+
+    <!-- KLING -->
+    <div class="tool-block kling">
+      <div class="tool-sidebar">
+        <div>
+          <div class="tool-role">Видеогенерация</div>
+          <div class="tool-name kling display">Kling 3<br>Multishot</div>
+        </div>
+        <div class="tool-step-tag">Шаги 04 – 06 пайплайна</div>
+        <div class="spec-block">
+          <div class="spec-block-title">Базовые параметры</div>
+          <div class="spec-rows">
+            <div class="spec-row">
+              <div class="spec-key">Режим</div>
+              <div class="spec-val">Multishot — 3 сцены</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Формат</div>
+              <div class="spec-val">9:16 · 1080×1920</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Длина шота</div>
+              <div class="spec-val">5–6 сек каждый</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Стиль</div>
+              <div class="spec-val normal" style="font-size:10px;">Cinematic naturalistic, warm grade</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Генерация</div>
+              <div class="spec-val">5–10 мин на ролик</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tool-content">
+        <div class="prompt-block">
+          <div class="prompt-header">Структура промпта — Шот 1 (Мир персонажа)</div>
+          <div class="prompt-text"><span class="var">[Возраст/пол]</span>, <span class="var">[этнос]</span>, <span class="var">[локация]</span>, <span class="var">[время суток]</span>, <span class="var">[действие/объект]</span>, <span class="var">[эмоция]</span> — <span class="kw">handheld wide</span>, <span class="kw">cinematic naturalistic</span>, <span class="kw">warm color grade</span><br><br>
+<span style="color:var(--gray)">// Пример:</span><br>"Young man, 20s, Lagos street, dusk, holding worn football, looking hopeful — handheld wide, cinematic naturalistic, warm color grade"</div>
+        </div>
+        <div class="prompt-block">
+          <div class="prompt-header">Структура промпта — Шот 2 (Телефон / Arena)</div>
+          <div class="prompt-text"><span class="kw">Same</span> <span class="var">[персонаж]</span> looking at phone screen showing Arena app, <span class="var">[реакция]</span> — <span class="kw">close-up push in</span>, soft background bokeh<br><br>
+<span style="color:var(--gray)">// Пример:</span><br>"Same man looking at phone screen showing Arena app, slow smile — close-up push in, soft background bokeh"</div>
+        </div>
+        <div class="prompt-block">
+          <div class="prompt-header">Структура промпта — Шот 3 (Трансформация / CTA)</div>
+          <div class="prompt-text"><span class="kw">Same</span> <span class="var">[персонаж]</span> smiling, <span class="var">[деталь — счётчик / логотип / жест]</span>, <span class="var">[взаимодействие с камерой]</span> — <span class="kw">medium pull back</span><br><br>
+<span style="color:var(--gray)">// Пример:</span><br>"Same man smiling, points counter visible on phone, looks up at camera — medium, pull back"</div>
+        </div>
+        <div class="spec-block">
+          <div class="spec-block-title">Motion Control — умножение персонажей</div>
+          <div class="spec-rows">
+            <div class="spec-row">
+              <div class="spec-key">Применять к</div>
+              <div class="spec-val normal">2–3 роликам/день с лучшей композицией (обычно Форматы 01, 04)</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Что меняется</div>
+              <div class="spec-val normal">Этнос · Пол · Возраст</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Что сохраняется</div>
+              <div class="spec-val normal">Все движения · Тайминг · Среда · VO-аудио</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Вариантов на ролик</div>
+              <div class="spec-val">2 варианта → +4–6 доп. видео/день</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ELEVENLABS -->
+    <div class="tool-block eleven">
+      <div class="tool-sidebar">
+        <div>
+          <div class="tool-role">Закадровая озвучка</div>
+          <div class="tool-name eleven display">Eleven<br>Labs</div>
+        </div>
+        <div class="tool-step-tag">Шаг 03 пайплайна</div>
+        <div class="spec-block">
+          <div class="spec-block-title">Параметры скрипта</div>
+          <div class="spec-rows">
+            <div class="spec-row">
+              <div class="spec-key">Макс. слов</div>
+              <div class="spec-val">25 слов</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Темп</div>
+              <div class="spec-val">1.5 сл/сек</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Длина</div>
+              <div class="spec-val">~15 сек</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Лицо</div>
+              <div class="spec-val normal">Третье лицо "He/She…"</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Формат</div>
+              <div class="spec-val">.mp3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tool-content">
+        <div class="voice-cards">
+          <div class="voice-card">
+            <div class="voice-id display">Voice A</div>
+            <div class="voice-desc">
+              <strong>Тёплый мужской · Западноафриканский акцент</strong>
+              <span>Передаёт аутентичность, эмоциональную связь, «свой»</span>
+            </div>
+            <div class="voice-formats">Origin Story (01)<br>Fan Reaction (04)<br>Club Pride (05)</div>
+          </div>
+          <div class="voice-card">
+            <div class="voice-id display">Voice B</div>
+            <div class="voice-desc">
+              <strong>Нейтральная женская · US English</strong>
+              <span>Чёткость, доверие, глобальная аудитория</span>
+            </div>
+            <div class="voice-formats">How It Works (03)<br>First Earn (02)</div>
+          </div>
+          <div class="voice-card">
+            <div class="voice-id display">Voice C</div>
+            <div class="voice-desc">
+              <strong>Молодой энергичный мужской · US English</strong>
+              <span>Драйв, срочность, хайп — вирусный потенциал</span>
+            </div>
+            <div class="voice-formats">Challenge Drop (06)<br>Fan Reaction (04)<br>высокая энергия</div>
+          </div>
+        </div>
+        <div class="spec-block">
+          <div class="spec-block-title">Почему третье лицо ("He…")</div>
+          <div class="spec-rows">
+            <div class="spec-row">
+              <div class="spec-key">Причина</div>
+              <div class="spec-val normal">Один аудиофайл работает для всех Motion Control вариантов (смена пола/этноса персонажа не требует переозвучки)</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Исключение</div>
+              <div class="spec-val normal">Если Motion Control не применяется — можно использовать "I…" для личных историй (Origin Story)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAPCUT -->
+    <div class="tool-block capcut">
+      <div class="tool-sidebar">
+        <div>
+          <div class="tool-role">Постпродакшн</div>
+          <div class="tool-name capcut display">Cap<br>Cut</div>
+        </div>
+        <div class="tool-step-tag">Шаг 07 пайплайна</div>
+        <div class="spec-block">
+          <div class="spec-block-title">Параметры экспорта</div>
+          <div class="spec-rows">
+            <div class="spec-row">
+              <div class="spec-key">Разрешение</div>
+              <div class="spec-val">1080×1920</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Кодек</div>
+              <div class="spec-val">H.264</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">FPS</div>
+              <div class="spec-val">30</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Размер файла</div>
+              <div class="spec-val">~15 МБ/ролик</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tool-content">
+        <div class="spec-block">
+          <div class="spec-block-title">Обязательные элементы шаблона</div>
+          <div class="spec-rows">
+            <div class="spec-row">
+              <div class="spec-key">Субтитры</div>
+              <div class="spec-val normal">Нижние 20% кадра · Arial Bold · 44pt · белый текст + 2px чёрная тень · авто-синхр. с VO</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Логотип Arena</div>
+              <div class="spec-val normal">Правый нижний угол · появляется на 0:10 · белая версия на тёмных сценах</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">CTA-оверлей</div>
+              <div class="spec-val normal">Последние 4 секунды · белый жирный текст на 50% полупрозрачной тёмной полосе</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Цветокоррекция</div>
+              <div class="spec-val normal">Пресет «Arena Warm»: подъём теней · десатурация светов · тёплые полутона</div>
+            </div>
+          </div>
+        </div>
+        <div class="spec-block">
+          <div class="spec-block-title">Чеклист QC перед публикацией</div>
+          <div class="spec-rows">
+            <div class="spec-row">
+              <div class="spec-key">Синхронизация</div>
+              <div class="spec-val normal">VO совпадает с видеорядом, нет задержек</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Субтитры</div>
+              <div class="spec-val normal">Все слова корректны, нет обрезки по краям</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">CTA</div>
+              <div class="spec-val normal">Правильный текст для данного формата</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Логотип</div>
+              <div class="spec-val normal">Виден, не перекрыт субтитрами</div>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key">Цвет</div>
+              <div class="spec-val normal">Arena Warm применён, нет пересвета</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tool-sections -->
+</section>
+
+<!-- PHOTO DIVIDER -->
+<div class="photo-divider">
+  <img src="фото/Fashion Photography Pin.jpg" alt="">
+  <div class="photo-divider-overlay"></div>
+  <div class="photo-divider-label">ARCHETYPES</div>
+</div>
+
+<!-- ARCHETYPES -->
+<section id="archetypes" class="section">
+  <div class="section-header">
+    <div class="section-num display">04</div>
+    <div class="section-title">
+      <div class="section-label">Библиотека персонажей</div>
+      <div class="section-name display">8 архетипов</div>
+      <div class="section-desc">Motion Control создаёт 2–3 варианта каждого → пул 20+ персонажей без дополнительных творческих затрат.</div>
+    </div>
+  </div>
+
+  <div class="arch-grid">
+    <div class="arch-card">
+      <div class="arch-num">ARCHETYPE 01</div>
+      <div class="arch-name display">Мечтатель</div>
+      <div class="arch-desc">Подросток, тяжёлая среда, большая мечта связанная со спортом. Герой не обязан быть бедным — нужна только мечта.</div>
+      <div class="arch-tags">
+        <span class="arch-tag">Африка</span>
+        <span class="arch-tag">Индия</span>
+        <span class="arch-tag">Бразилия</span>
+        <span class="arch-tag">Origin Story</span>
+        <span class="arch-tag">Fan Reaction</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-num">ARCHETYPE 02</div>
+      <div class="arch-name display">Преданный фанат</div>
+      <div class="arch-desc">Болельщик среднего класса, живёт ради клуба. Универсальный — работает во всех регионах и видах спорта.</div>
+      <div class="arch-tags">
+        <span class="arch-tag">Весь мир</span>
+        <span class="arch-tag">Футбол</span>
+        <span class="arch-tag">Club Pride</span>
+        <span class="arch-tag">How It Works</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-num">ARCHETYPE 03</div>
+      <div class="arch-name display">Студент</div>
+      <div class="arch-desc">Хастл-мышление, нехватка денег, открывает Arena как источник дохода от своей страсти. Высокая конверсия.</div>
+      <div class="arch-tags">
+        <span class="arch-tag">США</span>
+        <span class="arch-tag">UK</span>
+        <span class="arch-tag">Европа</span>
+        <span class="arch-tag">First Earn</span>
+        <span class="arch-tag">Origin Story</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-num">ARCHETYPE 04</div>
+      <div class="arch-name display">Родитель</div>
+      <div class="arch-desc">Смотрит спорт вместе с ребёнком. Кормилец. Монетизирует семейную традицию просмотра матчей.</div>
+      <div class="arch-tags">
+        <span class="arch-tag">Весь мир</span>
+        <span class="arch-tag">Семья</span>
+        <span class="arch-tag">First Earn</span>
+        <span class="arch-tag">Club Pride</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-num">ARCHETYPE 05</div>
+      <div class="arch-name display">Ультрас</div>
+      <div class="arch-desc">Фанатичный supporter, клубная идентичность выше всего. Драйвер вирусности через Club Pride и Fan Reaction.</div>
+      <div class="arch-tags">
+        <span class="arch-tag">Европа</span>
+        <span class="arch-tag">LATAM</span>
+        <span class="arch-tag">Club Pride</span>
+        <span class="arch-tag">Fan Reaction</span>
+        <span class="arch-tag">Challenge</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-num">ARCHETYPE 06</div>
+      <div class="arch-name display">Хастлер</div>
+      <div class="arch-desc">Молодой предприниматель, видит Arena как бизнес-инструмент. Акцент на множителях и масштабировании дохода.</div>
+      <div class="arch-tags">
+        <span class="arch-tag">Африка</span>
+        <span class="arch-tag">LATAM</span>
+        <span class="arch-tag">ЮВА</span>
+        <span class="arch-tag">Origin Story</span>
+        <span class="arch-tag">Challenge</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-num">ARCHETYPE 07</div>
+      <div class="arch-name display">Случайный болельщик</div>
+      <div class="arch-desc">Обычный человек, удивлён простотой входа. Низкий барьер — «если он смог, то я точно смогу».</div>
+      <div class="arch-tags">
+        <span class="arch-tag">США</span>
+        <span class="arch-tag">UK</span>
+        <span class="arch-tag">Австралия</span>
+        <span class="arch-tag">First Earn</span>
+        <span class="arch-tag">How It Works</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-num">ARCHETYPE 08</div>
+      <div class="arch-name display">Фанат легенды</div>
+      <div class="arch-desc">Боготворит конкретного игрока — Мбаппе, ЛеБрон, Роналду. Максимальный охват через узнаваемость иконы.</div>
+      <div class="arch-tags">
+        <span class="arch-tag">Весь мир</span>
+        <span class="arch-tag">Иконы</span>
+        <span class="arch-tag">Fan Reaction</span>
+        <span class="arch-tag">Club Pride</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDAR -->
+<section id="calendar" class="section">
+  <div class="section-header">
+    <div class="section-num display">05</div>
+    <div class="section-title">
+      <div class="section-label">Ротация контента</div>
+      <div class="section-name display">Календарь · 7 дней</div>
+      <div class="section-desc">Слоты A–F распределены на 7 дней. Каждый формат появляется минимум 6 раз за 7 дней. Ни один формат не повторяется на том же дне две недели подряд.</div>
+    </div>
+  </div>
+
+  <table class="cal-table">
+    <thead>
+      <tr>
+        <th>День</th>
+        <th>Слот A</th>
+        <th>Слот B</th>
+        <th>Слот C</th>
+        <th>Слот D</th>
+        <th>Слот E</th>
+        <th>Слот F</th>
+        <th>Архетип (A+D)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Понедельник</td>
+        <td><span class="slot-a">Origin Story</span></td>
+        <td><span class="slot-b">How It Works</span></td>
+        <td><span class="slot-c">Fan Reaction</span></td>
+        <td><span class="slot-d">Club Pride</span></td>
+        <td><span class="slot-e">Challenge Drop</span></td>
+        <td><span class="slot-f">First Earn</span></td>
+        <td>Мечтатель</td>
+      </tr>
+      <tr>
+        <td>Вторник</td>
+        <td><span class="slot-a">First Earn</span></td>
+        <td><span class="slot-b">Club Pride</span></td>
+        <td><span class="slot-c">Origin Story</span></td>
+        <td><span class="slot-d">Fan Reaction</span></td>
+        <td><span class="slot-e">How It Works</span></td>
+        <td><span class="slot-f">Challenge Drop</span></td>
+        <td>Преданный фанат</td>
+      </tr>
+      <tr>
+        <td>Среда</td>
+        <td><span class="slot-a">Origin Story</span></td>
+        <td><span class="slot-b">Challenge Drop</span></td>
+        <td><span class="slot-c">First Earn</span></td>
+        <td><span class="slot-d">How It Works</span></td>
+        <td><span class="slot-e">Fan Reaction</span></td>
+        <td><span class="slot-f">Club Pride</span></td>
+        <td>Студент</td>
+      </tr>
+      <tr>
+        <td>Четверг</td>
+        <td><span class="slot-a">First Earn</span></td>
+        <td><span class="slot-b">How It Works</span></td>
+        <td><span class="slot-c">Club Pride</span></td>
+        <td><span class="slot-d">Origin Story</span></td>
+        <td><span class="slot-e">Challenge Drop</span></td>
+        <td><span class="slot-f">Fan Reaction</span></td>
+        <td>Ультрас</td>
+      </tr>
+      <tr>
+        <td>Пятница</td>
+        <td><span class="slot-a">Origin Story</span></td>
+        <td><span class="slot-b">Club Pride</span></td>
+        <td><span class="slot-c">How It Works</span></td>
+        <td><span class="slot-d">Challenge Drop</span></td>
+        <td><span class="slot-e">First Earn</span></td>
+        <td><span class="slot-f">Fan Reaction</span></td>
+        <td>Родитель</td>
+      </tr>
+      <tr>
+        <td>Суббота</td>
+        <td><span class="slot-a">Fan Reaction</span></td>
+        <td><span class="slot-b">Challenge Drop</span></td>
+        <td><span class="slot-c">Origin Story</span></td>
+        <td><span class="slot-d">First Earn</span></td>
+        <td><span class="slot-e">Club Pride</span></td>
+        <td><span class="slot-f">How It Works</span></td>
+        <td>Хастлер</td>
+      </tr>
+      <tr>
+        <td>Воскресенье</td>
+        <td><span class="slot-a">Fan Reaction</span></td>
+        <td><span class="slot-b">Origin Story</span></td>
+        <td><span class="slot-c">Club Pride</span></td>
+        <td><span class="slot-d">How It Works</span></td>
+        <td><span class="slot-e">First Earn</span></td>
+        <td><span class="slot-f">Challenge Drop</span></td>
+        <td>Фанат легенды</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top: 40px;">
+    <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 16px;">Месячная ротация клубов</div>
+    <table class="cal-table">
+      <thead>
+        <tr>
+          <th>Неделя</th>
+          <th>Клубный фокус</th>
+          <th>Регион</th>
+          <th>Спорт</th>
+          <th>Основные архетипы</th>
+          <th>Хэштеги (Club Pride)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Нед 1</td>
+          <td>Фламенго</td>
+          <td>Бразилия / LATAM</td>
+          <td>Футбол</td>
+          <td>Мечтатель · Ультрас</td>
+          <td style="font-family: monospace; font-size: 11px;">#Flamengo #ArenaPartner</td>
+        </tr>
+        <tr>
+          <td>Нед 2</td>
+          <td>Нигерия / Зап. Африка</td>
+          <td>Нигерия · Гана</td>
+          <td>Футбол</td>
+          <td>Хастлер · Мечтатель</td>
+          <td style="font-family: monospace; font-size: 11px;">#NigeriaFootball #Arena</td>
+        </tr>
+        <tr>
+          <td>Нед 3</td>
+          <td>Mumbai City / IPL</td>
+          <td>Индия · Пакистан</td>
+          <td>Футбол + Крикет</td>
+          <td>Студент · Фанат легенды</td>
+          <td style="font-family: monospace; font-size: 11px;">#MumbaiCity #IPL #Arena</td>
+        </tr>
+        <tr>
+          <td>Нед 4</td>
+          <td>Man Utd / Real Madrid</td>
+          <td>Глобально (Европа)</td>
+          <td>Футбол</td>
+          <td>Преданный фанат · Ультрас</td>
+          <td style="font-family: monospace; font-size: 11px;">#MUFC #HalaMadrid #Arena</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo display"><span>ARENA</span> × ARTEK STUDIO</div>
+  <div class="meta">
+    Production Playbook · Март 2026<br>
+    Конфиденциально · Только для внутреннего пользования<br>
+    Blockchain Sports / Atom Venture
+  </div>
+</footer>
+
+</body>
+</html>
