@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arena × AI Content Farm — Concept 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #0D0D0D;
+  --d1: #141414;
+  --d2: #1A1A1A;
+  --d3: #222222;
+  --d4: #2C2C2C;
+  --d5: #383838;
+  --red: #CC1E28;
+  --red2: #8B1015;
+  --red-dim: rgba(204,30,40,0.1);
+  --white: #FFFFFF;
+  --gray: #777777;
+  --lgray: #AAAAAA;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+.display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.03em; line-height: 0.92; }
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 64px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  background: rgba(13,13,13,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  color: var(--white);
+}
+.nav-logo span { color: var(--red); }
+nav a {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+nav a:hover { color: var(--white); }
+.nav-right { margin-left: auto; }
+.nav-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+  border: 1px solid var(--red2);
+  padding: 4px 12px;
+  border-radius: 2px;
+}
+
+/* ── COVER ── */
+#cover {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+.cover-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 120px 80px 100px;
+  position: relative;
+  z-index: 2;
+}
+.cover-right {
+  position: relative;
+  overflow: hidden;
+}
+.cover-right-photo {
+  position: absolute;
+  inset: 0;
+  background-image: url("фото/JG x Nike Basketball Shoot.jpg");
+  background-size: cover;
+  background-position: center 20%;
+  opacity: 0.55;
+  mask-image: linear-gradient(to left, black 60%, transparent 100%);
+}
+.cover-right-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, var(--bg) 100%);
+}
+.cover-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.cover-eyebrow-line { width: 40px; height: 1px; background: var(--red); }
+.cover-eyebrow-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.cover-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(80px, 9vw, 130px);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  margin-bottom: 32px;
+}
+.cover-h1 em {
+  display: block;
+  color: var(--red);
+  font-style: normal;
+}
+.cover-desc {
+  font-size: 16px;
+  color: var(--lgray);
+  line-height: 1.6;
+  max-width: 420px;
+  margin-bottom: 56px;
+  font-weight: 400;
+}
+.cover-pills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.cpill {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: 100px;
+  border: 1px solid var(--d5);
+  color: var(--lgray);
+  background: var(--d1);
+}
+.cpill.accent {
+  border-color: var(--red2);
+  background: var(--red-dim);
+  color: #FF6B72;
+}
+/* Grid overlay on left side */
+.cover-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 80px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+.scroll-hint::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--gray);
+}
+
+/* ── SECTIONS ── */
+.section {
+  padding: 100px 80px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.sec-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sec-label::before { content: ''; width: 28px; height: 1px; background: var(--red); }
+.sec-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  margin-bottom: 24px;
+}
+.sec-desc {
+  font-size: 16px;
+  color: var(--lgray);
+  max-width: 640px;
+  line-height: 1.65;
+  margin-bottom: 64px;
+}
+
+/* ── CONCEPT BLOCKS ── */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--d4);
+  margin-bottom: 0;
+}
+.concept-card {
+  background: var(--d1);
+  padding: 40px 36px;
+  position: relative;
+  overflow: hidden;
+}
+.concept-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--red) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.concept-card:hover::after { opacity: 1; }
+.concept-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  color: var(--d4);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.concept-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--white);
+}
+.concept-text {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.65;
+}
+
+/* ── FORMATS ── */
+.formats-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.fmt-row {
+  display: grid;
+  grid-template-columns: 80px 260px 1fr 200px;
+  align-items: start;
+  gap: 0;
+  padding: 36px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background 0.2s;
+}
+.fmt-row:last-child { border-bottom: none; }
+.fmt-row:hover { background: rgba(255,255,255,0.015); }
+.fmt-idx {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: var(--d5);
+  line-height: 1;
+  padding-top: 4px;
+}
+.fmt-name-col { padding-right: 40px; }
+.fmt-slot-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 8px;
+}
+.fmt-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  margin-bottom: 12px;
+}
+.fmt-dur {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray);
+}
+.fmt-body { padding-right: 40px; }
+.fmt-arc {
+  font-size: 13px;
+  color: var(--lgray);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.fmt-arc strong { color: var(--white); font-weight: 600; }
+.fmt-shots {
+  display: flex;
+  gap: 6px;
+  margin-top: 16px;
+}
+.fmt-shot-pill {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  background: var(--d2);
+  border: 1px solid var(--d4);
+  border-radius: 100px;
+  color: var(--lgray);
+}
+.fmt-right { display: flex; flex-direction: column; gap: 8px; }
+.fmt-audience {
+  font-size: 12px;
+  color: var(--gray);
+  text-align: right;
+  line-height: 1.5;
+}
+.fmt-cta {
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.06em;
+  color: var(--red);
+  text-align: right;
+  font-size: 14px;
+}
+.fmt-funnel {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+.funnel-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  background: var(--d2);
+  border: 1px solid var(--d4);
+  color: var(--gray);
+}
+
+/* ── PHOTO BREAK ── */
+.photo-break {
+  height: 340px;
+  position: relative;
+  overflow: hidden;
+}
+.photo-break img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  opacity: 0.3;
+}
+.photo-break-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, var(--bg) 0%, transparent 25%, transparent 75%, var(--bg) 100%),
+    linear-gradient(to bottom, var(--bg) 0%, transparent 25%, transparent 75%, var(--bg) 100%);
+}
+.photo-break-quote {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 80px;
+}
+.pq-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 5vw, 64px);
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.12);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.pq-sub {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+/* ── ARCHETYPES ── */
+.arch-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: var(--d4);
+}
+.arch-card {
+  background: var(--d1);
+  padding: 28px 28px;
+  position: relative;
+}
+.arch-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--d4);
+}
+.arch-card:hover::before { background: var(--red); }
+.arch-id {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--red);
+  margin-bottom: 6px;
+}
+.arch-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  margin-bottom: 10px;
+}
+.arch-desc {
+  font-size: 12px;
+  color: var(--gray);
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+.arch-geos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.arch-geo {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 2px;
+  background: var(--d3);
+  color: var(--gray);
+}
+
+/* ── RESULT ── */
+.result-section {
+  padding: 120px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.result-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("фото/Fence.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.06;
+}
+.result-content { position: relative; z-index: 2; }
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.result-left {}
+.result-tagline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 7vw, 96px);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  margin-bottom: 32px;
+}
+.result-tagline em {
+  color: var(--red);
+  font-style: normal;
+  display: block;
+}
+.result-text {
+  font-size: 16px;
+  color: var(--lgray);
+  line-height: 1.65;
+  margin-bottom: 40px;
+  max-width: 480px;
+}
+.result-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.result-row {
+  background: var(--d1);
+  border: 1px solid var(--d3);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.result-row-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--red-dim);
+  border: 1px solid var(--red2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.result-row-body {}
+.result-row-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.result-row-sub {
+  font-size: 12px;
+  color: var(--gray);
+}
+
+/* ── HOW ── */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--d4);
+}
+.how-card {
+  background: var(--d1);
+  padding: 36px 32px;
+}
+.how-step {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  color: var(--d4);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.how-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.how-text {
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.6;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 60px 80px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.08em;
+}
+.footer-logo span { color: var(--red); }
+.footer-meta {
+  font-size: 12px;
+  color: var(--gray);
+  text-align: right;
+  line-height: 1.8;
+}
+
+@media (max-width: 1024px) {
+  #cover { grid-template-columns: 1fr; }
+  .cover-right { display: none; }
+  .cover-left { padding: 100px 40px 80px; }
+  .section { padding: 80px 40px; }
+  .fmt-row { grid-template-columns: 60px 1fr; gap: 0; }
+  .fmt-body, .fmt-right { grid-column: 2; }
+  .arch-row { grid-template-columns: repeat(2, 1fr); }
+  .concept-grid, .how-grid { grid-template-columns: 1fr; }
+  .result-grid { grid-template-columns: 1fr; }
+  footer { padding: 40px; flex-direction: column; gap: 24px; }
+  nav { padding: 0 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>ARENA</span> × AI</div>
+  <a href="#concept">Концепция</a>
+  <a href="#formats">Форматы</a>
+  <a href="#audience">Аудитория</a>
+  <a href="#result">Результат</a>
+  <div class="nav-right">
+    <div class="nav-tag">Concept 2026</div>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section id="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-left">
+    <div class="cover-eyebrow">
+      <div class="cover-eyebrow-line"></div>
+      <div class="cover-eyebrow-text">Arena × AI · Content Farm · 2026</div>
+    </div>
+    <h1 class="cover-h1 display">
+      Content<br>
+      <em>Farm</em>
+    </h1>
+    <p class="cover-desc">
+      AI-система производства коротких видеороликов для привлечения болельщиков по всему миру — масштабируемая, многоязычная, персонализированная под каждый регион и клуб.
+    </p>
+    <div class="cover-pills">
+      <div class="cpill accent">AI-производство</div>
+      <div class="cpill">6 форматов</div>
+      <div class="cpill">8 архетипов</div>
+      <div class="cpill">Глобальный охват</div>
+    </div>
+  </div>
+  <div class="cover-right">
+    <div class="cover-right-photo"></div>
+  </div>
+  <div class="scroll-hint">Прокрути вниз</div>
+</section>
+
+<!-- CONCEPT -->
+<section id="concept" class="section">
+  <div class="sec-label">Концепция</div>
+  <h2 class="sec-title display">Система,<br>а не разовый контент</h2>
+  <p class="sec-desc">Контент-ферма — это не набор роликов. Это конвейер, который ежедневно производит персонализированный видеоконтент под разные аудитории, регионы и точки воронки.</p>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-num display">01</div>
+      <div class="concept-title">Разнообразие форматов</div>
+      <div class="concept-text">Шесть типов роликов покрывают весь путь болельщика — от первого знакомства с Arena до момента первого заработка. Каждый формат бьёт в свою точку воронки.</div>
+    </div>
+    <div class="concept-card">
+      <div class="concept-num display">02</div>
+      <div class="concept-title">Глобальные персонажи</div>
+      <div class="concept-text">Библиотека из 8 архетипов охватывает Африку, Латинскую Америку, Европу, Азию. Один и тот же сценарий превращается в несколько роликов с разными персонажами для разных рынков.</div>
+    </div>
+    <div class="concept-card">
+      <div class="concept-num display">03</div>
+      <div class="concept-title">Ежедневное производство</div>
+      <div class="concept-text">Система работает как медиамашина — стандартизированный пайплайн обеспечивает стабильный поток контента без потери в качестве и без творческих задержек.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATS -->
+<section id="formats" class="section">
+  <div class="sec-label">Форматы видео</div>
+  <h2 class="sec-title display">6 форматов —<br>каждый со своей задачей</h2>
+  <p class="sec-desc">Каждый ролик — 15–20 секунд. Вертикальный формат для TikTok, Instagram Reels, YouTube Shorts. Все на английском языке для максимального охвата.</p>
+
+  <div class="formats-wrap">
+
+    <div class="fmt-row">
+      <div class="fmt-idx display">01</div>
+      <div class="fmt-name-col">
+        <div class="fmt-slot-tag">Слот A · Ежедневно</div>
+        <div class="fmt-name display">Origin Story</div>
+        <div class="fmt-dur">15–18 сек</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-arc"><strong>Эмоциональная дуга:</strong> Боль → Открытие → Надежда</div>
+        <div class="fmt-arc" style="color: var(--gray); font-size: 13px;">История обычного болельщика, который нашёл в Arena не просто платформу — а способ монетизировать свою страсть. Самый эмоциональный формат. Строит доверие через узнаваемость.</div>
+        <div class="fmt-shots">
+          <span class="fmt-shot-pill">Мир героя</span>
+          <span class="fmt-shot-pill">Момент открытия</span>
+          <span class="fmt-shot-pill">Трансформация</span>
+        </div>
+      </div>
+      <div class="fmt-right">
+        <div class="fmt-audience">Мечтатель · Хастлер · Студент</div>
+        <div class="fmt-cta display">JOIN ARENA</div>
+        <div class="fmt-funnel"><span class="funnel-badge">Осведомлённость → Желание</span></div>
+      </div>
+    </div>
+
+    <div class="fmt-row">
+      <div class="fmt-idx display">02</div>
+      <div class="fmt-name-col">
+        <div class="fmt-slot-tag">Слот B · Ежедневно</div>
+        <div class="fmt-name display">First Earn</div>
+        <div class="fmt-dur">15–20 сек</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-arc"><strong>Эмоциональная дуга:</strong> Удивление → Подтверждение → FOMO</div>
+        <div class="fmt-arc" style="color: var(--gray); font-size: 13px;">«Момент первого заработка» — главный конверсионный триггер. Персонаж понимает, что он заработал, просто поделившись видео. Максимальная конверсия из всех форматов.</div>
+        <div class="fmt-shots">
+          <span class="fmt-shot-pill">Удивление</span>
+          <span class="fmt-shot-pill">Счётчик поинтов</span>
+          <span class="fmt-shot-pill">Раскрытие</span>
+        </div>
+      </div>
+      <div class="fmt-right">
+        <div class="fmt-audience">Случайный болельщик · Студент · Родитель</div>
+        <div class="fmt-cta display">SEE YOUR EARNINGS</div>
+        <div class="fmt-funnel"><span class="funnel-badge">Желание → Действие</span></div>
+      </div>
+    </div>
+
+    <div class="fmt-row">
+      <div class="fmt-idx display">03</div>
+      <div class="fmt-name-col">
+        <div class="fmt-slot-tag">Слот C · Ежедневно</div>
+        <div class="fmt-name display">How It Works</div>
+        <div class="fmt-dur">18–20 сек</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-arc"><strong>Эмоциональная дуга:</strong> Ясность → Простота → Призыв</div>
+        <div class="fmt-arc" style="color: var(--gray); font-size: 13px;">Трёхшаговый визуальный гайд: Watch → Share → Create. Снимает барьер входа, объясняет механику Arena максимально просто. Лучший второй контакт после форматов на осведомлённость.</div>
+        <div class="fmt-shots">
+          <span class="fmt-shot-pill">Watch × 0.1</span>
+          <span class="fmt-shot-pill">Share × 1</span>
+          <span class="fmt-shot-pill">Create × 50</span>
+        </div>
+      </div>
+      <div class="fmt-right">
+        <div class="fmt-audience">Преданный фанат · Случайный болельщик</div>
+        <div class="fmt-cta display">START NOW</div>
+        <div class="fmt-funnel"><span class="funnel-badge">Интерес → Желание</span></div>
+      </div>
+    </div>
+
+    <div class="fmt-row">
+      <div class="fmt-idx display">04</div>
+      <div class="fmt-name-col">
+        <div class="fmt-slot-tag">Слот D · Ежедневно</div>
+        <div class="fmt-name display">Fan Reaction</div>
+        <div class="fmt-dur">15–17 сек</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-arc"><strong>Эмоциональная дуга:</strong> Эмоция → Идентичность → Монетизация</div>
+        <div class="fmt-arc" style="color: var(--gray); font-size: 13px;">Самый универсальный формат. Сырая реакция болельщика на матч — и момент осознания, что эта эмоция теперь стоит денег. Пиковые результаты во время крупных турниров.</div>
+        <div class="fmt-shots">
+          <span class="fmt-shot-pill">Реакция на матч</span>
+          <span class="fmt-shot-pill">Публикация</span>
+          <span class="fmt-shot-pill">Заработок</span>
+        </div>
+      </div>
+      <div class="fmt-right">
+        <div class="fmt-audience">Ультрас · Преданный фанат · Фанат легенды</div>
+        <div class="fmt-cta display">REACT & EARN</div>
+        <div class="fmt-funnel"><span class="funnel-badge">Осведомлённость → Вирус</span></div>
+      </div>
+    </div>
+
+    <div class="fmt-row">
+      <div class="fmt-idx display">05</div>
+      <div class="fmt-name-col">
+        <div class="fmt-slot-tag">Слот E · Ежедневно</div>
+        <div class="fmt-name display">Club Pride</div>
+        <div class="fmt-dur">15–18 сек</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-arc"><strong>Эмоциональная дуга:</strong> Клубная гордость → Коллективный заработок</div>
+        <div class="fmt-arc" style="color: var(--gray); font-size: 13px;">Контент под конкретный клуб и фанатское сообщество. Раскрывает механику зеркальных поинтов: зарабатывает болельщик — зарабатывает клуб. Идеален для точечного таргетинга.</div>
+        <div class="fmt-shots">
+          <span class="fmt-shot-pill">Клубная идентичность</span>
+          <span class="fmt-shot-pill">Публикация</span>
+          <span class="fmt-shot-pill">Двойной заработок</span>
+        </div>
+      </div>
+      <div class="fmt-right">
+        <div class="fmt-audience">Ультрас · Преданный фанат</div>
+        <div class="fmt-cta display">YOUR CLUB EARNS</div>
+        <div class="fmt-funnel"><span class="funnel-badge">Таргетинг по сообществам</span></div>
+      </div>
+    </div>
+
+    <div class="fmt-row">
+      <div class="fmt-idx display">06</div>
+      <div class="fmt-name-col">
+        <div class="fmt-slot-tag">Слот F · Ежедневно</div>
+        <div class="fmt-name display">Challenge Drop</div>
+        <div class="fmt-dur">15–20 сек</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-arc"><strong>Эмоциональная дуга:</strong> FOMO → Соревнование → Командный импульс</div>
+        <div class="fmt-arc" style="color: var(--gray); font-size: 13px;">Еженедельный вирусный челлендж с повышенным множителем поинтов. Создаёт петлю вовлечённости: один ролик порождает десятки реакций. Ротация хэштегов каждую неделю.</div>
+        <div class="fmt-shots">
+          <span class="fmt-shot-pill">Анонс челленджа</span>
+          <span class="fmt-shot-pill">Задание × 10</span>
+          <span class="fmt-shot-pill">Срочный CTA</span>
+        </div>
+      </div>
+      <div class="fmt-right">
+        <div class="fmt-audience">Все архетипы · Высокая энергия</div>
+        <div class="fmt-cta display">JOIN THE CHALLENGE</div>
+        <div class="fmt-funnel"><span class="funnel-badge">Осведомлённость → Действие</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PHOTO BREAK -->
+<div class="photo-break">
+  <img src="фото/Female Choosing Music for Workout.jpg" alt="">
+  <div class="photo-break-overlay"></div>
+  <div class="photo-break-quote">
+    <div class="pq-text display">"YOUR PASSION. YOUR PROFIT."</div>
+    <div class="pq-sub">Один слоган Arena работает для каждого из 8 архетипов</div>
+  </div>
+</div>
+
+<!-- AUDIENCE -->
+<section id="audience" class="section">
+  <div class="sec-label">Аудитория</div>
+  <h2 class="sec-title display">8 архетипов —<br>один месседж</h2>
+  <p class="sec-desc">Контент-ферма не создаёт одного универсального «болельщика». Она работает с библиотекой из 8 архетипов, каждый из которых отражает реального человека в конкретном регионе.</p>
+
+  <div class="arch-row">
+    <div class="arch-card">
+      <div class="arch-id">ARCHETYPE 01</div>
+      <div class="arch-name display">Мечтатель</div>
+      <div class="arch-desc">Подросток с большой мечтой, связанной со спортом. Открывает Arena как способ превратить страсть в доход.</div>
+      <div class="arch-geos">
+        <span class="arch-geo">Африка</span>
+        <span class="arch-geo">Индия</span>
+        <span class="arch-geo">Бразилия</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-id">ARCHETYPE 02</div>
+      <div class="arch-name display">Преданный фанат</div>
+      <div class="arch-desc">Болельщик среднего класса, живёт ради клуба. Универсальный архетип для любого региона и вида спорта.</div>
+      <div class="arch-geos">
+        <span class="arch-geo">Весь мир</span>
+        <span class="arch-geo">Футбол</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-id">ARCHETYPE 03</div>
+      <div class="arch-name display">Студент</div>
+      <div class="arch-desc">Хастл-мышление, нехватка денег. Видит Arena как реальный источник дохода от своей страсти.</div>
+      <div class="arch-geos">
+        <span class="arch-geo">США</span>
+        <span class="arch-geo">UK</span>
+        <span class="arch-geo">Европа</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-id">ARCHETYPE 04</div>
+      <div class="arch-name display">Родитель</div>
+      <div class="arch-desc">Смотрит спорт с ребёнком. Монетизирует семейную традицию просмотра матчей без изменения привычек.</div>
+      <div class="arch-geos">
+        <span class="arch-geo">Весь мир</span>
+        <span class="arch-geo">Семья</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-id">ARCHETYPE 05</div>
+      <div class="arch-name display">Ультрас</div>
+      <div class="arch-desc">Фанатичный supporter, клубная идентичность прежде всего. Главный драйвер вирусности в сообществах.</div>
+      <div class="arch-geos">
+        <span class="arch-geo">Европа</span>
+        <span class="arch-geo">LATAM</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-id">ARCHETYPE 06</div>
+      <div class="arch-name display">Хастлер</div>
+      <div class="arch-desc">Молодой предприниматель. Видит Arena как бизнес-инструмент и масштабирует заработок через создание контента.</div>
+      <div class="arch-geos">
+        <span class="arch-geo">Африка</span>
+        <span class="arch-geo">LATAM</span>
+        <span class="arch-geo">ЮВА</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-id">ARCHETYPE 07</div>
+      <div class="arch-name display">Случайный болельщик</div>
+      <div class="arch-desc">Обычный человек, удивлён простотой входа. Снижает психологический барьер: «если он смог — я точно смогу».</div>
+      <div class="arch-geos">
+        <span class="arch-geo">США</span>
+        <span class="arch-geo">UK</span>
+        <span class="arch-geo">Австралия</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-id">ARCHETYPE 08</div>
+      <div class="arch-name display">Фанат легенды</div>
+      <div class="arch-desc">Боготворит конкретного игрока — Мбаппе, ЛеБрон, Роналду. Максимальный охват через узнаваемость иконы.</div>
+      <div class="arch-geos">
+        <span class="arch-geo">Весь мир</span>
+        <span class="arch-geo">Иконы</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="sec-label">Как это работает</div>
+  <h2 class="sec-title display">Стандартизированный<br>процесс</h2>
+  <p class="sec-desc">Система построена так, чтобы каждый ролик соответствовал единому стандарту качества — независимо от темы, региона или архетипа.</p>
+
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-step display">01</div>
+      <div class="how-title">Бриф и сценарий</div>
+      <div class="how-text">Каждый день определяются архетипы, регионы и форматы для шести роликов. Сценарий закадрового голоса создаётся по стандартному шаблону — максимум 25 слов, чёткий эмоциональный крючок.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-step display">02</div>
+      <div class="how-title">Видео и озвучка</div>
+      <div class="how-text">Кинематографические видеоролики с профессиональным закадровым голосом на английском языке. Три сцены на ролик — мир персонажа, момент Arena, трансформация. Несколько вариантов персонажей из одного базового ролика.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-step display">03</div>
+      <div class="how-title">Постпродакшн и публикация</div>
+      <div class="how-text">Субтитры, логотип Arena, CTA-оверлей, фирменная цветокоррекция. Каждый ролик оптимизирован под TikTok, Instagram Reels и YouTube Shorts. Публикация по расписанию в пиковые часы активности.</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULT -->
+<section id="result" class="result-section">
+  <div class="result-bg"></div>
+  <div class="result-content">
+    <div class="result-grid">
+      <div class="result-left">
+        <div class="sec-label">Результат</div>
+        <div class="result-tagline display">
+          Контент<br>как<br>
+          <em>актив</em>
+        </div>
+        <p class="result-text">
+          Контент-ферма не просто производит ролики — она строит органический канал привлечения болельщиков, который работает круглосуточно. Каждый ролик — точечный удар в конкретную аудиторию в конкретном регионе.
+        </p>
+      </div>
+      <div class="result-right">
+        <div class="result-row">
+          <div class="result-row-icon">🌍</div>
+          <div class="result-row-body">
+            <div class="result-row-title">Глобальный охват</div>
+            <div class="result-row-sub">Африка · LATAM · Европа · Азия · США — одновременно</div>
+          </div>
+        </div>
+        <div class="result-row">
+          <div class="result-row-icon">⚡</div>
+          <div class="result-row-body">
+            <div class="result-row-title">Ежедневный поток</div>
+            <div class="result-row-sub">Стабильное производство без творческих задержек и выгорания</div>
+          </div>
+        </div>
+        <div class="result-row">
+          <div class="result-row-icon">🎯</div>
+          <div class="result-row-body">
+            <div class="result-row-title">Точечный таргетинг</div>
+            <div class="result-row-sub">Каждый ролик создан под конкретный архетип, регион и клуб</div>
+          </div>
+        </div>
+        <div class="result-row">
+          <div class="result-row-icon">🔁</div>
+          <div class="result-row-body">
+            <div class="result-row-title">Мультипликация контента</div>
+            <div class="result-row-sub">Один базовый ролик → несколько вариантов для разных рынков</div>
+          </div>
+        </div>
+        <div class="result-row">
+          <div class="result-row-icon">📈</div>
+          <div class="result-row-body">
+            <div class="result-row-title">Масштабируемость</div>
+            <div class="result-row-sub">Система растёт вместе с платформой без пропорционального роста затрат</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo display"><span>ARENA</span> × ARTEK STUDIO</div>
+  <div class="footer-meta">
+    AI Content Farm · Concept 2026<br>
+    Blockchain Sports / Atom Venture
+  </div>
+</footer>
+
+</body>
+</html>
